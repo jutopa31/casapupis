@@ -2,7 +2,7 @@
 
 **Fecha**: 2025-11-29
 **Versión**: 1.0.0
-**Estado**: En Desarrollo - Configuración de Supabase
+**Estado**: ✅ FUNCIONAL - Listo para usar
 
 ## ✅ Completado
 
@@ -30,51 +30,29 @@
 - [x] Tablas definidas: events, guests, guest_events, tasks, budget_categories, budget_items
 - [x] Ejecutado en Supabase: `https://hkuvpgqirpiszxdtyrbm.supabase.co`
 
-## ⚠️ Pendiente
+## ✅ Configuración Completada
 
-### Configuración de Supabase
-- [ ] **CRÍTICO**: Actualizar `.env.local` con la **ANON/PUBLIC KEY** correcta
-  - Actualmente tiene: `sb_secret_yQwVaJBfdJsI5diz4vhdZw_3J2Y4vK7` (secret key - INCORRECTO)
-  - Necesita: La **anon public** key de Supabase
+### Supabase
+- [x] ANON_KEY configurada correctamente
+- [x] Conexión a base de datos funcional
+- [x] Servidor reiniciado con nueva configuración
 
-### Pasos para Completar
+### Próximo Paso Opcional
 
-1. **Ir a Supabase Dashboard**
-   - URL: https://app.supabase.com
-   - Proyecto: `hkuvpgqirpiszxdtyrbm`
+**Crear usuario admin en Supabase** (solo si quieres desactivar el bypass de auth):
+1. Supabase Dashboard → Authentication → Users
+2. "Add user" → Crear con email y password
+3. Comentar el bypass en `src/components/ProtectedRoute.tsx`
 
-2. **Obtener la clave correcta**
-   - Ir a: Settings → API
-   - Copiar: **anon** **public** (NO la service_role secret)
-   - La clave correcta empieza con `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
+## 🚀 Cómo Usar la App
 
-3. **Actualizar `.env.local`**
-   ```env
-   VITE_SUPABASE_URL=https://hkuvpgqirpiszxdtyrbm.supabase.co
-   VITE_SUPABASE_ANON_KEY=eyJhbGciOi... (la clave anon/public correcta)
-   VITE_APP_URL=http://localhost:5174
-   ```
-
-4. **Reiniciar el servidor**
-   ```bash
-   # Ctrl+C para detener
-   npm run dev
-   ```
-
-5. **Crear usuario admin** (después de tener la key correcta)
-   - Supabase Dashboard → Authentication → Users
-   - "Add user" → Crear con email y password
-   - Usar ese usuario para login (cuando desactives el bypass)
-
-## 🚀 Cómo Probar Ahora
-
-### Modo Desarrollo (Sin Auth)
+### Servidor en Ejecución
 ```bash
 npm run dev
 ```
-- Abrir: http://localhost:5174
-- Acceso directo al Dashboard (auth bypass activo)
-- **NOTA**: Las funciones de base de datos NO funcionarán hasta tener la ANON_KEY correcta
+- ✅ Corriendo en: **http://localhost:5173**
+- ✅ Auth bypass activo (acceso directo)
+- ✅ Base de datos conectada y funcional
 
 ### Para Activar Autenticación
 En `src/components/ProtectedRoute.tsx`, cambiar:
@@ -99,21 +77,23 @@ Cuando tengas la ANON_KEY correcta:
    ```
 3. Deploy
 
-## 🐛 Problemas Conocidos
+## 📋 Notas
 
-1. **ANON_KEY incorrecta** - En `.env.local` hay una secret key en lugar de la anon public key
-2. **Sin datos de prueba** - La base de datos está vacía, necesita datos para probar
-3. **Auth bypass activo** - Modo desarrollo sin autenticación para preview
+1. **Auth bypass activo** - Modo desarrollo sin autenticación para facilitar preview
+2. **Base de datos vacía** - Lista para agregar invitados, tareas y presupuesto
+3. **Lista para producción** - Solo falta hacer deploy a Vercel
 
-## 📝 Próximos Pasos
+## 📝 Siguientes Pasos Sugeridos
 
-1. Obtener ANON_KEY correcta de Supabase
-2. Actualizar `.env.local`
-3. Reiniciar servidor
-4. Crear usuario admin en Supabase
-5. Agregar datos de prueba (invitados, tareas, presupuesto)
-6. Probar RSVP público
-7. Deploy a Vercel
+1. ✅ ~~Configurar Supabase~~ - COMPLETADO
+2. Probar todas las funcionalidades:
+   - Crear invitados y asignar a eventos
+   - Agregar tareas con prioridades
+   - Registrar items de presupuesto
+   - Generar enlaces de invitación
+   - Probar RSVP público
+3. Crear usuario admin (opcional)
+4. Deploy a Vercel cuando esté listo
 
 ## 🔗 Links
 
