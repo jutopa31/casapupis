@@ -227,7 +227,3 @@ npm run lint     # ESLint
 - Template de invitaciones es **editable**
 - Diseño **minimalista** con espaciado generoso
 - **Mobile-first** y completamente responsive
-
----
-
-Desarrollado con ❤️ para tu casamiento
