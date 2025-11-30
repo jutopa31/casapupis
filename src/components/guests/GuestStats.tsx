@@ -1,6 +1,6 @@
 import { Guest } from '@/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Users, CheckCircle, XCircle } from 'lucide-react'
+import { Users, CheckCircle } from 'lucide-react'
 
 interface GuestStatsProps {
   guests: Guest[]

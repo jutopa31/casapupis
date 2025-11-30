@@ -9,8 +9,6 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-  DragOverEvent,
-  closestCorners,
   pointerWithin,
 } from '@dnd-kit/core'
 import { GuestChip } from './GuestChip'
@@ -47,7 +45,6 @@ const COLUMNS = [
 
 export function GuestsKanban({ guests, onGuestClick }: GuestsKanbanProps) {
   const [activeGuest, setActiveGuest] = useState<Guest | null>(null)
-  const [overId, setOverId] = useState<string | null>(null)
   const updateGuest = useUpdateGuest()
 
   const sensors = useSensors(
@@ -63,14 +60,8 @@ export function GuestsKanban({ guests, onGuestClick }: GuestsKanbanProps) {
     setActiveGuest(guest || null)
   }
 
-  const handleDragOver = (event: DragOverEvent) => {
-    const { over } = event
-    setOverId(over ? over.id as string : null)
-  }
-
   const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event
-    setOverId(null)
 
     if (!over) {
       setActiveGuest(null)
@@ -123,7 +114,6 @@ export function GuestsKanban({ guests, onGuestClick }: GuestsKanbanProps) {
     <DndContext
       sensors={sensors}
       onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
       collisionDetection={pointerWithin}
     >

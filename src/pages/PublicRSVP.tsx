@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGuestByToken, useUpdateRSVP } from '@/hooks/useRSVP'
+import { GuestEvent } from '@/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -119,7 +120,7 @@ export function PublicRSVP() {
 
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {guest.guest_events?.map((guestEvent) => (
+              {guest.guest_events?.map((guestEvent: GuestEvent) => (
                 <Card key={guestEvent.id}>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
