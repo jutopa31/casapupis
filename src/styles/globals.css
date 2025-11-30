@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Verde Naturaleza - Paleta personalizada */
+    --background: 60 20% 99%;        /* #FDFDFB - Blanco cálido */
+    --foreground: 0 0% 18%;           /* #2E2E2E - Gris oscuro */
+
+    --primary: 120 15% 57%;           /* #8BA888 - Verde sage */
+    --primary-foreground: 60 20% 99%;
+
+    --secondary: 60 25% 96%;          /* #F5F5F0 - Beige muy claro */
+    --secondary-foreground: 0 0% 18%;
+
+    --accent: 95 17% 60%;             /* #9CAF88 - Verde oliva claro */
+    --accent-foreground: 0 0% 18%;
+
+    --muted: 60 14% 91%;              /* #E8E8E0 - Beige gris */
+    --muted-foreground: 0 0% 45%;     /* #737373 - Gris medio */
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 18%;
+
+    --border: 60 14% 91%;
+    --input: 60 14% 91%;
+    --ring: 120 15% 57%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+}
