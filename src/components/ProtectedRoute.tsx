@@ -9,6 +9,12 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { user, loading } = useAuthStore()
 
+  // MODO DESARROLLO: Saltear autenticación
+  const isDev = import.meta.env.DEV
+  if (isDev) {
+    return <>{children}</>
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
