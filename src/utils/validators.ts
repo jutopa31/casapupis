@@ -8,6 +8,7 @@ export const guestSchema = z.object({
   group_name: z.string().optional(),
   notes: z.string().optional(),
   category: z.string().optional(),
+  certainty_level: z.enum(['confirmed', 'probable', 'uncertain']).optional(),
 })
 
 export const taskSchema = z.object({
@@ -22,14 +23,14 @@ export const taskSchema = z.object({
 export const budgetItemSchema = z.object({
   category_id: z.string().min(1, 'La categoría es requerida'),
   name: z.string().min(1, 'El nombre es requerido'),
-  estimated_cost: z.number().min(0, 'El costo debe ser mayor a 0'),
-  actual_cost: z.number().min(0, 'El costo debe ser mayor a 0'),
-  vendor: z.string().optional(),
-  notes: z.string().optional(),
+  estimated_cost: z.coerce.number().min(0, 'El costo debe ser mayor a 0'),
+  actual_cost: z.coerce.number().min(0, 'El costo debe ser mayor a 0').default(0),
+  vendor: z.string().optional().default(''),
+  notes: z.string().optional().default(''),
 })
 
 export const rsvpSchema = z.object({
   confirmed: z.boolean(),
-  plus_ones: z.number().min(0).max(10),
-  dietary_restrictions: z.string().optional(),
+  plus_ones: z.coerce.number().min(0).max(10).default(0),
+  dietary_restrictions: z.string().optional().default(''),
 })

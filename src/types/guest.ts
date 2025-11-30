@@ -1,3 +1,5 @@
+export type CertaintyLevel = 'confirmed' | 'probable' | 'uncertain'
+
 export interface Guest {
   id: string
   first_name: string
@@ -7,6 +9,7 @@ export interface Guest {
   group_name?: string | null
   notes?: string | null
   category?: string | null
+  certainty_level?: CertaintyLevel | null
   rsvp_token?: string | null
   created_at: string
   updated_at: string

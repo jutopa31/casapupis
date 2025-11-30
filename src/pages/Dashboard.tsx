@@ -16,6 +16,16 @@ export function Dashboard() {
   }
 
   const totalGuests = guests.length
+
+  // Invitados asignados a cada evento
+  const invitedCeremonia = guests.filter((g) =>
+    g.guest_events?.some((ge) => ge.event?.name === 'Ceremonia')
+  ).length
+  const invitedFiesta = guests.filter((g) =>
+    g.guest_events?.some((ge) => ge.event?.name === 'Fiesta')
+  ).length
+
+  // Invitados confirmados
   const confirmedCeremonia = guests.filter((g) =>
     g.guest_events?.some((ge) => ge.event?.name === 'Ceremonia' && ge.confirmed)
   ).length
@@ -48,7 +58,7 @@ export function Dashboard() {
           <CardContent>
             <div className="text-2xl font-bold">{totalGuests}</div>
             <p className="text-xs text-muted-foreground">
-              Ceremonia: {confirmedCeremonia} | Fiesta: {confirmedFiesta}
+              Ceremonia: {invitedCeremonia} ({confirmedCeremonia} ✓) | Fiesta: {invitedFiesta} ({confirmedFiesta} ✓)
             </p>
           </CardContent>
         </Card>

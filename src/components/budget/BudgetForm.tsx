@@ -57,16 +57,10 @@ export function BudgetForm({ open, onClose, item }: BudgetFormProps) {
 
   const onSubmit = async (data: any) => {
     try {
-      const formData = {
-        ...data,
-        estimated_cost: parseFloat(data.estimated_cost),
-        actual_cost: parseFloat(data.actual_cost),
-      }
-
       if (item) {
-        await updateItem.mutateAsync({ id: item.id, data: formData })
+        await updateItem.mutateAsync({ id: item.id, data })
       } else {
-        await createItem.mutateAsync(formData)
+        await createItem.mutateAsync(data)
       }
       onClose()
     } catch (error) {

@@ -57,6 +57,7 @@ export function GuestForm({ open, onClose, guest }: GuestFormProps) {
         group_name: '',
         notes: '',
         category: '',
+        certainty_level: 'probable',
       })
       setSelectedEvents([])
     }
@@ -205,6 +206,38 @@ export function GuestForm({ open, onClose, guest }: GuestFormProps) {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="certainty_level">Nivel de Certeza</Label>
+            <Select
+              onValueChange={(value) => setValue('certainty_level', value as any)}
+              defaultValue={guest?.certainty_level || 'probable'}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccionar..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="confirmed">
+                  <span className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-green-500"></span>
+                    Confirmado
+                  </span>
+                </SelectItem>
+                <SelectItem value="probable">
+                  <span className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
+                    Probable
+                  </span>
+                </SelectItem>
+                <SelectItem value="uncertain">
+                  <span className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-red-500"></span>
+                    Incierto
+                  </span>
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
