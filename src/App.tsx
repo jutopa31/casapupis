@@ -9,6 +9,7 @@ import { GuestsPage } from '@/pages/GuestsPage'
 import { BudgetPage } from '@/pages/BudgetPage'
 import { TasksPage } from '@/pages/TasksPage'
 import { InvitationsPage } from '@/pages/InvitationsPage'
+import { PublicRSVP } from '@/pages/PublicRSVP'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +26,7 @@ function AppContent() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/rsvp/:token" element={<PublicRSVP />} />
 
       <Route
         element={

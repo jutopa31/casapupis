@@ -1,7 +1,35 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Users, DollarSign, CheckSquare, Calendar } from 'lucide-react'
+import { useGuests } from '@/hooks/useGuests'
+import { useBudgetItems } from '@/hooks/useBudget'
+import { useTasks } from '@/hooks/useTasks'
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
+import { formatCurrency } from '@/utils/formatters'
 
 export function Dashboard() {
+  const { data: guests = [], isLoading: guestsLoading } = useGuests()
+  const { data: budgetItems = [], isLoading: budgetLoading } = useBudgetItems()
+  const { data: tasks = [], isLoading: tasksLoading } = useTasks()
+
+  if (guestsLoading || budgetLoading || tasksLoading) {
+    return <LoadingSpinner />
+  }
+
+  const totalGuests = guests.length
+  const confirmedCeremonia = guests.filter((g) =>
+    g.guest_events?.some((ge) => ge.event?.name === 'Ceremonia' && ge.confirmed)
+  ).length
+  const confirmedFiesta = guests.filter((g) =>
+    g.guest_events?.some((ge) => ge.event?.name === 'Fiesta' && ge.confirmed)
+  ).length
+
+  const totalEstimated = budgetItems.reduce((sum, i) => sum + i.estimated_cost, 0)
+  const totalActual = budgetItems.reduce((sum, i) => sum + i.actual_cost, 0)
+
+  const completedTasks = tasks.filter((t) => t.completed).length
+  const totalTasks = tasks.length
+  const tasksPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0
+
   return (
     <div className="space-y-6">
       <div>
@@ -18,9 +46,9 @@ export function Dashboard() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
+            <div className="text-2xl font-bold">{totalGuests}</div>
             <p className="text-xs text-muted-foreground">
-              0 confirmados
+              Ceremonia: {confirmedCeremonia} | Fiesta: {confirmedFiesta}
             </p>
           </CardContent>
         </Card>
@@ -33,9 +61,9 @@ export function Dashboard() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$0</div>
+            <div className="text-2xl font-bold">{formatCurrency(totalActual)}</div>
             <p className="text-xs text-muted-foreground">
-              de $0 estimado
+              de {formatCurrency(totalEstimated)} estimado
             </p>
           </CardContent>
         </Card>
@@ -48,9 +76,9 @@ export function Dashboard() {
             <CheckSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0/0</div>
+            <div className="text-2xl font-bold">{completedTasks}/{totalTasks}</div>
             <p className="text-xs text-muted-foreground">
-              completadas
+              {tasksPercentage.toFixed(0)}% completadas
             </p>
           </CardContent>
         </Card>
