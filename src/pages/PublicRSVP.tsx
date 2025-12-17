@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { useGuestByToken, useUpdateRSVP } from '@/hooks/useRSVP'
 import { GuestEvent } from '@/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -12,8 +12,14 @@ import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
 import { CheckCircle, XCircle, Heart } from 'lucide-react'
 
 export function PublicRSVP() {
-  const { token } = useParams<{ token: string }>()
-  const { data: guest, isLoading } = useGuestByToken(token || '')
+  const { nameOrToken } = useParams<{ nameOrToken: string }>()
+  const [searchParams] = useSearchParams()
+
+  // Get token from query parameter if exists (new format: /rsvp/name?t=token)
+  // Otherwise use path parameter (old format: /rsvp/token)
+  const token = searchParams.get('t') || nameOrToken || ''
+
+  const { data: guest, isLoading } = useGuestByToken(token)
   const updateRSVP = useUpdateRSVP()
   const [submitted, setSubmitted] = useState(false)
 
