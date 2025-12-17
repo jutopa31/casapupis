@@ -1,25 +1,17 @@
 import { useState } from 'react'
 import { useGuests } from '@/hooks/useGuests'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
-import { Copy, Check, Send, Search } from 'lucide-react'
+import { ShareButtons } from '@/components/invitations/ShareButtons'
+import { Check, Send, Search } from 'lucide-react'
 
 export function InvitationsPage() {
   const { data: guests = [], isLoading } = useGuests()
-  const [copiedId, setCopiedId] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
 
   const appUrl = import.meta.env.VITE_APP_URL || window.location.origin
-
-  const handleCopyLink = async (token: string, guestId: string) => {
-    const link = `${appUrl}/rsvp/${token}`
-    await navigator.clipboard.writeText(link)
-    setCopiedId(guestId)
-    setTimeout(() => setCopiedId(null), 2000)
-  }
 
   if (isLoading) return <LoadingSpinner />
 
@@ -147,26 +139,7 @@ export function InvitationsPage() {
 
                         {guest.rsvp_token && (
                           <div className="mt-3">
-                            <div className="flex items-center gap-2">
-                              <Input
-                                value={`${appUrl}/rsvp/${guest.rsvp_token}`}
-                                readOnly
-                                className="text-sm"
-                              />
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() =>
-                                  handleCopyLink(guest.rsvp_token!, guest.id)
-                                }
-                              >
-                                {copiedId === guest.id ? (
-                                  <Check className="h-4 w-4" />
-                                ) : (
-                                  <Copy className="h-4 w-4" />
-                                )}
-                              </Button>
-                            </div>
+                            <ShareButtons guest={guest} appUrl={appUrl} />
                           </div>
                         )}
                       </div>
